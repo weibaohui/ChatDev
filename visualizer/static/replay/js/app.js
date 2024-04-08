@@ -231,7 +231,7 @@ function extraction(contents) {
     const regex_end = /(AgentTech Ends|ChatDev Ends)/g;
     const regex_start = /(ChatDev Starts)([\D\s])*(\d*)/g;
 
-    const regex_task = /(task_prompt)(.*):(.*)/g;
+    const regex_task = /(任务提示\*\*):(.*)/g;
     const regex_info = /软件信息([\r\n\s\S\t\d\D]*)/g;
 
     const regex_system = /System/g;
@@ -318,7 +318,7 @@ function extraction(contents) {
 
         }
         while ((match = regex_task.exec(matches[i].text)) !== null) {
-            const task = match[3];
+            const task = match[2];
             dialog.push({
                 task
             });
