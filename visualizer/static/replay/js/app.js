@@ -367,8 +367,8 @@ function extraction(contents) {
             if ((/费用(?:[\t\n\r\s\D]*?)=(.((\d)*\.(\d)*))/g).exec(info) != null) {
                 Softwareinfo.cost = (/费用(?:[\t\n\r\s\D]*?)=(.((\d)*\.(\d)*))/g).exec(info)[1];
             }
-            if ((/代码更新次数(?:[\t\n\r\s\D]*?)=(-?\d*)/g).exec(info) != null) {
-                Softwareinfo.version_updates = (/代码更新次数(?:[\t\n\r\s\D]*?)=(-?\d*)/g).exec(info)[1];
+            if ((/代码版本号(?:[\t\n\r\s\D]*?)=(-?\d*)/g).exec(info) != null) {
+                Softwareinfo.version_updates = (/代码版本号(?:[\t\n\r\s\D]*?)=(-?\d*)/g).exec(info)[1];
             }
 
             dialog.push({

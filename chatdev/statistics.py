@@ -157,7 +157,7 @@ def get_info(dir, log_filepath):
     if prompt_cost(model_type, num_prompt_tokens, num_completion_tokens) != -1:
         cost += prompt_cost(model_type, num_prompt_tokens, num_completion_tokens)
     info = ("\n\n💰**费用**=${:.6f}"
-            "\n\n🔨**代码更新次数**={}"
+            "\n\n🔨**代码版本号**={}"
             "\n\n📃**代码文件数**={}"
             "\n\n🏞**png文件数**={}"
             "\n\n📚**文档行数**={}"
