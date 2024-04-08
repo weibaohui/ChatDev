@@ -78,6 +78,7 @@ class Phase(ABC):
             need_reflect: flag for checking reflection
             with_task_specify: with task specify
             model_type: model type
+            memory:
             placeholders: placeholders for phase environment to generate phase prompt
             chat_turn_limit: turn limits in each chat
 
@@ -115,24 +116,27 @@ class Phase(ABC):
         _, input_user_msg = role_play_session.init_chat(None, placeholders, phase_prompt)
         seminar_conclusion = None
 
-        # handle chats
-        # the purpose of the chatting in one phase is to get a seminar conclusion
-        # there are two types of conclusion
-        # 1. with "<INFO>" mark
-        # 1.1 get seminar conclusion flag (ChatAgent.info) from assistant or user role, which means there exist special "<INFO>" mark in the conversation
-        # 1.2 add "<INFO>" to the reflected content of the chat (which may be terminated chat without "<INFO>" mark)
-        # 2. without "<INFO>" mark, which means the chat is terminated or normally ended without generating a marked conclusion, and there is no need to reflect
+        # handle chats the purpose of the chatting in one phase is to get a seminar conclusion there are two types of
+        # conclusion
+        # 1. with "<INFO>" mark 1.1 get seminar conclusion flag (ChatAgent.info) from assistant or user
+        # role, which means there exist special "<INFO>" mark in the conversation 1.2 add "<INFO>" to the reflected
+        # content of the chat (which may be terminated chat without "<INFO>" mark)
+        # 2. without "<INFO>" mark,
+        # which means the chat is terminated or normally ended without generating a marked conclusion, and there is
+        # no need to reflect
         for i in range(chat_turn_limit):
             # start the chat, we represent the user and send msg to assistant
             # 1. so the input_user_msg should be assistant_role_prompt + phase_prompt
             # 2. then input_user_msg send to LLM and get assistant_response
-            # 3. now we represent the assistant and send msg to user, so the input_assistant_msg is user_role_prompt + assistant_response
-            # 4. then input_assistant_msg send to LLM and get user_response
-            # all above are done in role_play_session.step, which contains two interactions with LLM
-            # the first interaction is logged in role_play_session.init_chat
+            # 3. now we represent the assistant and send msg to user, so the input_assistant_msg is user_role_prompt +
+            # assistant_response
+            # 4. then input_assistant_msg send to LLM and get user_response all above are done in
+            # role_play_session.step, which contains two interactions with LLM the first interaction is logged in
+            # role_play_session.init_chat
             assistant_response, user_response = role_play_session.step(input_user_msg, chat_turn_limit == 1)
 
-            conversation_meta = "** " + str(phase_name) + "阶段，" + assistant_role_name + "<->" + user_role_name + "，第" + str(i+1) + "轮对话 **\n\n"
+            conversation_meta = "** " + str(
+                phase_name) + "阶段，" + assistant_role_name + "<->" + user_role_name + "，第" + str(i + 1) + "轮对话 **\n\n"
 
             # TODO: max_tokens_exceeded errors here
             if isinstance(assistant_response.msg, ChatMessage):
@@ -347,7 +351,8 @@ class Coding(Phase):
 
     def update_phase_env(self, chat_env):
         gui = "" if not chat_env.config.gui_design \
-            else "软件应该配备图形用户界面（GUI），以便用户可以通过视觉和图形化方式使用它；因此，您必须选择一个 GUI 框架（例如，在 Python 中，您可以通过 tkinter、Pygame、Flexx、PyGUI 等实现 GUI）。"
+            else ("软件应该配备图形用户界面（GUI），以便用户可以通过视觉和图形化方式使用它；因此，您必须选择一个 GUI 框架（例如，在 Python 中，您可以通过 "
+                  "tkinter、Pygame、Flexx、PyGUI 等实现 GUI）。")
         self.phase_env.update({"task": chat_env.env_dict['task_prompt'],
                                "description": chat_env.env_dict['task_description'],
                                "modality": chat_env.env_dict['modality'],
