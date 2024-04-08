@@ -111,18 +111,13 @@
    在Unix/Linux系统上：
 
    ```
-
-cd WareHouse/project_name_DefaultOrganization_timestamp
-python3 main.py
-
+    cd WareHouse/project_name_DefaultOrganization_timestamp
+    python3 main.py
    ```
 
    在Windows系统上：
-
    ```
-
-cd WareHouse/project_name_DefaultOrganization_timestamp
-python main.py
-
+    cd WareHouse/project_name_DefaultOrganization_timestamp
+    python main.py
    ```
    
