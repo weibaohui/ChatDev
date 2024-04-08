@@ -1,0 +1,104 @@
+{
+  "chain": [
+    {
+      "phase": "DemandAnalysis",
+      "phaseType": "SimplePhase",
+      "max_turn_step": -1,
+      "need_reflect": "True"
+    },
+    {
+      "phase": "LanguageChoose",
+      "phaseType": "SimplePhase",
+      "max_turn_step": -1,
+      "need_reflect": "True"
+    },
+    {
+      "phase": "Coding",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "False"
+    },
+    {
+      "phase": "CodeCompleteAll",
+      "phaseType": "ComposedPhase",
+      "cycleNum": 10,
+      "Composition": [
+        {
+          "phase": "CodeComplete",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        }
+      ]
+    },
+    {
+      "phase": "CodeReview",
+      "phaseType": "ComposedPhase",
+      "cycleNum": 3,
+      "Composition": [
+        {
+          "phase": "CodeReviewComment",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        },
+        {
+          "phase": "CodeReviewModification",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        }
+      ]
+    },
+    {
+      "phase": "Test",
+      "phaseType": "ComposedPhase",
+      "cycleNum": 3,
+      "Composition": [
+        {
+          "phase": "TestErrorSummary",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        },
+        {
+          "phase": "TestModification",
+          "phaseType": "SimplePhase",
+          "max_turn_step": 1,
+          "need_reflect": "False"
+        }
+      ]
+    },
+    {
+      "phase": "EnvironmentDoc",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "True"
+    },
+    {
+      "phase": "Manual",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "False"
+    }
+  ],
+  "recruitments": [
+    "首席执行官",
+    "顾问",
+    "首席人力资源官",
+    "首席产品官",
+    "首席技术官",
+    "程序员",
+    "代码审查员",
+    "软件测试工程师",
+    "首席创意官"
+  ],
+  "clear_structure": "True",
+  "gui_design": "True",
+  "git_management": "False",
+  "web_spider": "False",
+  "self_improve": "False",
+  "incremental_develop": "False",
+  "with_memory": "False",
+  "background_prompt": "ChatDev 是一家由多个智能代理驱动的软件公司，例如首席执行官、首席人力资源官、首席产品官、首席技术官等，采用多智能体组织结构，使命是通过编程改变数字世界。"
+}
