@@ -51,12 +51,14 @@
 
    ```
    export OPENAI_API_KEY="your_OpenAI_API_key"
+   export BASE_URL="your_OpenAI_Server_Address/v1"
    ```
 
    在Windows系统上：
 
    ```
    $env:OPENAI_API_KEY="your_OpenAI_API_key"
+   $env:BASE_URL="your_OpenAI_Server_Address/v1"
    ```
 
 5. **构建您的软件：** 使用以下命令启动生成您的软件，将`[description_of_your_idea]`替换为您的想法描述，将`[project_name]`
