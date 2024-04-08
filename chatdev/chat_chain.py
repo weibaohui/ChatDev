@@ -182,7 +182,7 @@ class ChatChain:
         # directory = root + "/WareHouse/"
         directory = os.path.join(root, "WareHouse")
         log_filepath = os.path.join(directory,
-                                    "{}.log".format("_".join([self.project_name, self.org_name, start_time])))
+                                    f"{'_'.join([self.project_name, self.org_name, start_time])}.log")
         return start_time, log_filepath
 
     def pre_processing(self):
@@ -201,7 +201,7 @@ class ChatChain:
                 # logs with error trials are left in WareHouse/
                 if os.path.isfile(file_path) and not filename.endswith(".py") and not filename.endswith(".log"):
                     os.remove(file_path)
-                    print("{} 已删除.".format(file_path))
+                    print(f"{file_path} 已删除.")
 
         software_path = os.path.join(directory, "_".join([self.project_name, self.org_name, self.start_time]))
         self.chat_env.set_directory(software_path)
@@ -233,16 +233,16 @@ class ChatChain:
         preprocess_msg = "**[处理中]**\n\n"
         chat_gpt_config = ChatGPTConfig()
 
-        preprocess_msg += "**ChatDev 启动时间** ({})\n\n".format(self.start_time)
-        preprocess_msg += "**时间戳**: {}\n\n".format(self.start_time)
-        preprocess_msg += "**ChatChinConfig路径**: {}\n\n".format(self.config_path)
-        preprocess_msg += "**PhaseConfig路径**: {}\n\n".format(self.config_phase_path)
-        preprocess_msg += "**RoleConfig路径**: {}\n\n".format(self.config_role_path)
-        preprocess_msg += "**任务提示**: {}\n\n".format(self.task_prompt_raw)
-        preprocess_msg += "**项目名称**: {}\n\n".format(self.project_name)
-        preprocess_msg += "**运行日志路径**: {}\n\n".format(self.log_filepath)
-        preprocess_msg += "**ChatDev配置**:\n{}\n\n".format(self.chat_env.config.__str__())
-        preprocess_msg += "**ChatGPT大模型配置**:\n{}\n\n".format(chat_gpt_config)
+        preprocess_msg += f"**ChatDev 启动时间** ({self.start_time})\n\n"
+        preprocess_msg += f"**时间戳**: {self.start_time}\n\n"
+        preprocess_msg += f"**ChatChinConfig路径**: {self.config_path}\n\n"
+        preprocess_msg += f"**PhaseConfig路径**: {self.config_phase_path}\n\n"
+        preprocess_msg += f"**RoleConfig路径**: {self.config_role_path}\n\n"
+        preprocess_msg += f"**任务提示**: {self.task_prompt_raw}\n\n"
+        preprocess_msg += f"**项目名称**: {self.project_name}\n\n"
+        preprocess_msg += f"**运行日志路径**: {self.log_filepath}\n\n"
+        preprocess_msg += f"**ChatDev配置**:\n{self.chat_env.config.__str__()}\n\n"
+        preprocess_msg += f"**ChatGPT大模型配置**:\n{chat_gpt_config}\n\n"
         log_visualize(preprocess_msg)
 
         # init task prompt
@@ -268,19 +268,20 @@ class ChatChain:
             log_git_info = "**[Git 信息]**\n\n"
 
             self.chat_env.codes.version += 1
-            os.system("cd {}; git add .".format(self.chat_env.env_dict["directory"]))
-            log_git_info += "cd {}; git add .\n".format(self.chat_env.env_dict["directory"])
-            os.system("cd {}; git commit -m \"v{} Final Version\"".format(self.chat_env.env_dict["directory"],
-                                                                          self.chat_env.codes.version))
-            log_git_info += "cd {}; git commit -m \"v{} Final Version\"\n".format(self.chat_env.env_dict["directory"],
-                                                                                  self.chat_env.codes.version)
+            os.system(f"cd {self.chat_env.env_dict['directory']}; git add .")
+            log_git_info += f"cd {self.chat_env.env_dict['directory']}; git add .\n"
+            os.system(
+                f"cd {self.chat_env.env_dict['directory']}; git commit -m \"v{self.chat_env.codes.version} Final "
+                f"Version\"")
+            log_git_info += (f"cd {self.chat_env.env_dict['directory']}; git commit -m \"v{self.chat_env.codes.version} "
+                             f"Final Version\"\n")
             log_visualize(log_git_info)
 
             git_info = "**[Git Log]**\n\n"
             import subprocess
 
             # execute git log
-            command = "cd {}; git log".format(self.chat_env.env_dict["directory"])
+            command = f"cd {self.chat_env.env_dict['directory']}; git log"
             completed_process = subprocess.run(command, shell=True, text=True, stdout=subprocess.PIPE)
 
             if completed_process.returncode == 0:
@@ -299,11 +300,10 @@ class ChatChain:
         duration = (datetime2 - datetime1).total_seconds()
 
         post_info += "软件信息: {}".format(
-            get_info(self.chat_env.env_dict['directory'], self.log_filepath) + "\n\n🕑**运行耗时**={:.2f}s\n\n".format(
-                duration))
+            get_info(self.chat_env.env_dict['directory'], self.log_filepath) + f"\n\n🕑**运行耗时**={duration:.2f}s\n\n")
 
-        post_info += "ChatDev 开始时间 ({})".format(self.start_time) + "\n\n"
-        post_info += "ChatDev 完成时间 ({})".format(now_time) + "\n\n"
+        post_info += f"ChatDev 开始时间 ({self.start_time})" + "\n\n"
+        post_info += f"ChatDev 完成时间 ({now_time})" + "\n\n"
 
         directory = self.chat_env.env_dict['directory']
         if self.chat_env.config.clear_structure:
@@ -311,7 +311,7 @@ class ChatChain:
                 file_path = os.path.join(directory, filename)
                 if os.path.isdir(file_path) and file_path.endswith("__pycache__"):
                     shutil.rmtree(file_path, ignore_errors=True)
-                    post_info += "{} 已删除.".format(file_path) + "\n\n"
+                    post_info += f"{file_path} 已删除." + "\n\n"
 
         log_visualize(post_info)
 
@@ -360,6 +360,5 @@ class ChatChain:
         revised_task_prompt = assistant_response.msg.content.split("<INFO>")[-1].lower().strip()
         log_visualize(role_play_session.assistant_agent.role_name, assistant_response.msg.content)
         log_visualize(
-            "**[任务提示自我改进]**\n**原始提示词**: {}\n**改进后提示词**: {}".format(
-                task_prompt, revised_task_prompt))
+            f"**[任务提示自我改进]**\n**原始提示词**: {task_prompt}\n**改进后提示词**: {revised_task_prompt}")
         return revised_task_prompt

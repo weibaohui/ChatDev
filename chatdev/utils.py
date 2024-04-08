@@ -38,7 +38,7 @@ def log_visualize(role, content=None):
                 value = content.meta_dict[key]
                 value = escape_string(value)
                 records_kv.append([key, value])
-            content = "**[SystemMessage**]\n\n" + convert_to_markdown_table(records_kv)
+            content = "**[SystemMessage]**\n\n" + convert_to_markdown_table(records_kv)
         else:
             role = str(role)
             content = str(content)

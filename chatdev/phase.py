@@ -181,7 +181,7 @@ class Phase(ABC):
         else:
             seminar_conclusion = assistant_response.msg.content
 
-        log_visualize("**[研讨会总结]**:\n\n {}".format(seminar_conclusion))
+        log_visualize(f"**[研讨会总结]**:\n\n {seminar_conclusion}")
         seminar_conclusion = seminar_conclusion.split("<INFO>")[-1]
         return seminar_conclusion
 
@@ -366,7 +366,7 @@ class Coding(Phase):
             raise ValueError("No Valid Codes.")
         chat_env.rewrite_codes("Finish Coding")
         log_visualize(
-            "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+            f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
 
@@ -383,7 +383,7 @@ class ArtDesign(Phase):
     def update_chat_env(self, chat_env) -> ChatEnv:
         chat_env.proposed_images = chat_env.get_proposed_images_from_message(self.seminar_conclusion)
         log_visualize(
-            "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+            f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
 
@@ -396,7 +396,7 @@ class ArtIntegration(Phase):
                           "language": chat_env.env_dict['language'],
                           "codes": chat_env.get_codes(),
                           "images": "\n".join(
-                              ["{}: {}".format(filename, chat_env.proposed_images[filename]) for
+                              [f"{filename}: {chat_env.proposed_images[filename]}" for
                                filename in sorted(list(chat_env.proposed_images.keys()))])}
 
     def update_chat_env(self, chat_env) -> ChatEnv:
@@ -404,7 +404,7 @@ class ArtIntegration(Phase):
         chat_env.rewrite_codes("Finish Art Integration")
         # chat_env.generate_images_from_codes()
         log_visualize(
-            "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+            f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
 
@@ -435,7 +435,7 @@ class CodeComplete(Phase):
             raise ValueError("No Valid Codes.")
         chat_env.rewrite_codes("Code Complete #" + str(self.phase_env["cycle_index"]) + " Finished")
         log_visualize(
-            "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+            f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
 
@@ -474,7 +474,7 @@ class CodeReviewModification(Phase):
             chat_env.update_codes(self.seminar_conclusion)
             chat_env.rewrite_codes("Review #" + str(self.phase_env["cycle_index"]) + " Finished")
             log_visualize(
-                "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+                f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         self.phase_env['modification_conclusion'] = self.seminar_conclusion
         return chat_env
 
@@ -495,7 +495,7 @@ class CodeReviewHuman(Phase):
             chat_env.update_codes(self.seminar_conclusion)
             chat_env.rewrite_codes("Human Review #" + str(self.phase_env["cycle_index"]) + " Finished")
             log_visualize(
-                "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+                f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
     def execute(self, chat_env, chat_turn_limit, need_reflect) -> ChatEnv:
@@ -557,7 +557,7 @@ class TestErrorSummary(Phase):
                                "codes": chat_env.get_codes(),
                                "test_reports": test_reports,
                                "exist_bugs_flag": exist_bugs_flag})
-        log_visualize("**[测试报告]**:\n\n{}".format(test_reports))
+        log_visualize(f"**[测试报告]**:\n\n{test_reports}")
 
     def update_chat_env(self, chat_env) -> ChatEnv:
         chat_env.env_dict['error_summary'] = self.seminar_conclusion
@@ -574,7 +574,11 @@ class TestErrorSummary(Phase):
             pip_install_content = ""
             for match in re.finditer(r"No module named '(\S+)'", self.phase_env['test_reports'], re.DOTALL):
                 module = match.group(1)
-                pip_install_content += "{}\n```{}\n{}\n```\n".format("cmd", "bash", f"pip install {module}")
+                pip_install_content += (f"{'cmd'}"
+                                        f"\n```bash"
+                                        f"\n{f'pip install {module}'}"
+                                        f"\n```"
+                                        f"\n")
                 log_visualize(f"程序员 通过执行命令:\n{pip_install_content}\n 解决了 ModuleNotFoundError ")
             self.seminar_conclusion = "无需处理"
         else:
@@ -614,7 +618,7 @@ class TestModification(Phase):
             chat_env.update_codes(self.seminar_conclusion)
             chat_env.rewrite_codes("测试 #" + str(self.phase_env["cycle_index"]) + " 完成")
             log_visualize(
-                "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+                f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
 
@@ -633,7 +637,7 @@ class EnvironmentDoc(Phase):
         chat_env._update_requirements(self.seminar_conclusion)
         chat_env.rewrite_requirements()
         log_visualize(
-            "**[软件信息]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+            f"**[软件信息]**:\n\n {get_info(chat_env.env_dict['directory'], self.log_filepath)}")
         return chat_env
 
 

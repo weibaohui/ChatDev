@@ -56,7 +56,7 @@ class Codes:
         for key in new_codes.codebooks.keys():
             if key not in self.codebooks.keys() or self.codebooks[key] != new_codes.codebooks[key]:
                 update_codes_content = "**[更新代码]**\n\n"
-                update_codes_content += "更新 {}\n".format(key)
+                update_codes_content += f"更新 {key}\n"
                 old_codes_content = self.codebooks[key] if key in self.codebooks.keys() else "# None"
                 new_codes_content = new_codes.codebooks[key]
 
@@ -80,7 +80,7 @@ class Codes:
             self.version += 1.0
         if not os.path.exists(directory):
             os.mkdir(self.directory)
-            rewrite_codes_content += "创建文件夹{} \n".format(directory)
+            rewrite_codes_content += f"创建文件夹{directory} \n"
 
         for filename in self.codebooks.keys():
             filepath = os.path.join(directory, filename)
@@ -91,40 +91,34 @@ class Codes:
         if git_management:
             if not phase_info:
                 phase_info = ""
-            log_git_info = "**[Git 信息]**\n\n"
+            log_git_info = "**[运行 Git 命令]**\n\n"
             if self.version == 1.0:
-                os.system("cd {}; git init".format(self.directory))
-                log_git_info += "cd {}; git init\n".format(self.directory)
-            os.system("cd {}; git add .".format(self.directory))
-            log_git_info += "cd {}; git add .\n".format(self.directory)
+                os.system(f"cd {self.directory}; git init")
+                log_git_info += f"cd {self.directory}; git init\n"
+            os.system(f"cd {self.directory}; git add .")
+            log_git_info += f"cd {self.directory}; git add .\n"
 
             # check if there exist diff
-            completed_process = subprocess.run("cd {}; git status".format(self.directory), shell=True, text=True,
+            completed_process = subprocess.run(f"cd {self.directory}; git status", shell=True, text=True,
                                                stdout=subprocess.PIPE)
             if "nothing to commit" in completed_process.stdout:
                 self.version -= 1.0
                 return
 
-            os.system("cd {}; git commit -m \"v{}\"".format(self.directory, str(self.version) + " " + phase_info))
-            log_git_info += "cd {}; git commit -m \"v{}\"\n".format(self.directory,
-                                                                    str(self.version) + " " + phase_info)
+            os.system(f"cd {self.directory}; git commit -m \"v{str(self.version) + ' ' + phase_info}\"")
+            log_git_info += f"cd {self.directory}; git commit -m \"v{str(self.version) + ' ' + phase_info}\"\n"
             if self.version == 1.0:
-                os.system("cd {}; git submodule add ./{} {}".format(os.path.dirname(os.path.dirname(self.directory)),
-                                                                    "WareHouse/" + os.path.basename(self.directory),
-                                                                    "WareHouse/" + os.path.basename(self.directory)))
-                log_git_info += "cd {}; git submodule add ./{} {}\n".format(
-                    os.path.dirname(os.path.dirname(self.directory)),
-                    "WareHouse/" + os.path.basename(self.directory),
-                    "WareHouse/" + os.path.basename(self.directory))
+                os.system(
+                    f"cd {os.path.dirname(os.path.dirname(self.directory))}; "
+                    f"git submodule add ./{'WareHouse/' + os.path.basename(self.directory)} {'WareHouse/' + os.path.basename(self.directory)}")
+                log_git_info += f"cd {os.path.dirname(os.path.dirname(self.directory))}; git submodule add ./{'WareHouse/' + os.path.basename(self.directory)} {'WareHouse/' + os.path.basename(self.directory)}\n"
                 log_visualize(rewrite_codes_content)
             log_visualize(log_git_info)
 
     def _get_codes(self) -> str:
         content = ""
         for filename in self.codebooks.keys():
-            content += "{}\n```{}\n{}\n```\n\n".format(filename,
-                                                       "python" if filename.endswith(".py") else filename.split(".")[
-                                                           -1], self.codebooks[filename])
+            content += f"{filename}\n```{'python' if filename.endswith('.py') else filename.split('.')[-1]}\n{self.codebooks[filename]}\n```\n\n"
         return content
 
     def _load_from_hardware(self, directory) -> None:
@@ -134,4 +128,4 @@ class Codes:
                 if filename.endswith(".py"):
                     code = open(os.path.join(directory, filename), "r", encoding="utf-8").read()
                     self.codebooks[filename] = self._format_code(code)
-        log_visualize("从{}读取了{}个文件".format(directory, len(self.codebooks.keys())))
+        log_visualize(f"从{directory}读取了{len(self.codebooks.keys())}个文件")

@@ -17,4 +17,4 @@ class Roster:
     def _print_employees(self):
         names = self.agents
         names = [name.lower().strip() for name in names]
-        print("员工: {}".format(names))
+        print(f"员工: {names}")
