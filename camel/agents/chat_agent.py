@@ -29,6 +29,7 @@ from camel.utils import (
     openai_api_key_required,
 )
 from chatdev.utils import log_visualize
+
 try:
     from openai.types.chat import ChatCompletion
 
@@ -87,7 +88,7 @@ class ChatAgent(BaseAgent):
     def __init__(
             self,
             system_message: SystemMessage,
-            memory = None,
+            memory=None,
             model: Optional[ModelType] = None,
             model_config: Optional[Any] = None,
             message_window_size: Optional[int] = None,
@@ -104,7 +105,7 @@ class ChatAgent(BaseAgent):
         self.terminated: bool = False
         self.info: bool = False
         self.init_messages()
-        if memory !=None and self.role_name in["代码审查员","程序员","软件测试工程师"]:
+        if memory != None and self.role_name in ["代码审查员", "程序员", "软件测试工程师"]:
             self.memory = memory.memory_data.get("All")
         else:
             self.memory = None
@@ -165,39 +166,40 @@ class ChatAgent(BaseAgent):
         """
         self.stored_messages.append(message)
         return self.stored_messages
-    def use_memory(self,input_message) -> List[MessageType]:
-        if self.memory is None :
+
+    def use_memory(self, input_message) -> List[MessageType]:
+        if self.memory is None:
             return None
         else:
             if self.role_name == "程序员":
-                result = self.memory.memory_retrieval(input_message,"code")
+                result = self.memory.memory_retrieval(input_message, "code")
                 if result != None:
-                    target_memory,distances, mids,task_list,task_dir_list = result
+                    target_memory, distances, mids, task_list, task_dir_list = result
                     if target_memory != None and len(target_memory) != 0:
-                        target_memory="".join(target_memory)
-                        #self.stored_messages[-1].content = self.stored_messages[-1].content+"Here is some code you've previously completed:"+target_memory+"You can refer to the previous script to complement this task."
+                        target_memory = "".join(target_memory)
+                        # self.stored_messages[-1].content = self.stored_messages[-1].content+"Here is some code you've previously completed:"+target_memory+"You can refer to the previous script to complement this task."
                         log_visualize(self.role_name,
-                                            "thinking back and found some related code: \n--------------------------\n"
-                                            + target_memory)
+                                      "thinking back and found some related code: \n--------------------------\n"
+                                      + target_memory)
                 else:
                     target_memory = None
                     log_visualize(self.role_name,
-                                         "thinking back but find nothing useful")
+                                  "thinking back but find nothing useful")
 
             else:
                 result = self.memory.memory_retrieval(input_message, "text")
                 if result != None:
                     target_memory, distances, mids, task_list, task_dir_list = result
                     if target_memory != None and len(target_memory) != 0:
-                        target_memory=";".join(target_memory)
-                        #self.stored_messages[-1].content = self.stored_messages[-1].content+"Here are some effective and efficient instructions you have sent to the assistant :"+target_memory+"You can refer to these previous excellent instructions to better instruct assistant here."
+                        target_memory = ";".join(target_memory)
+                        # self.stored_messages[-1].content = self.stored_messages[-1].content+"Here are some effective and efficient instructions you have sent to the assistant :"+target_memory+"You can refer to these previous excellent instructions to better instruct assistant here."
                         log_visualize(self.role_name,
-                                            "thinking back and found some related text: \n--------------------------\n"
-                                            + target_memory)
+                                      "thinking back and found some related text: \n--------------------------\n"
+                                      + target_memory)
                 else:
                     target_memory = None
                     log_visualize(self.role_name,
-                                         "thinking back but find nothing useful")
+                                  "thinking back but find nothing useful")
 
         return target_memory
 
