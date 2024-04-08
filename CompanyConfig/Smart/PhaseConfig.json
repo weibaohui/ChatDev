@@ -136,7 +136,7 @@
     "user_role_name": "程序员",
     "phase_prompt": [
       "根据新用户的任务和我们的软件设计：",
-     "Task: \"{task}\".",
+      "Task: \"{task}\".",
       "Modality: \"{modality}\".",
       "Programming Language: \"{language}\"",
       "Ideas: \"{ideas}\"",
@@ -157,7 +157,7 @@
     "user_role_name": "代码审查员",
     "phase_prompt": [
       "根据新用户的任务、我们设计的产品形式、语言和创意，我们开发的第一版源代码如下：",
-     "Task: \"{task}\".",
+      "Task: \"{task}\".",
       "Modality: \"{modality}\".",
       "Programming Language: \"{language}\"",
       "Ideas: \"{ideas}\"",
@@ -194,7 +194,7 @@
     "user_role_name": "软件测试工程师",
     "phase_prompt": [
       "我们开发的源代码及相应的测试报告如下：",
-     "Programming Language: \"{language}\"",
+      "Programming Language: \"{language}\"",
       "Source Codes:",
       "\"{codes}\"",
       "Test Reports of Source Codes:",
@@ -217,7 +217,7 @@
     "user_role_name": "首席技术官",
     "phase_prompt": [
       "新用户的任务和我们开发的代码如下：",
-       "Task: \"{task}\".",
+      "Task: \"{task}\".",
       "Modality: \"{modality}\".",
       "Programming Language: \"{language}\"",
       "Ideas: \"{ideas}\"",
@@ -237,7 +237,7 @@
     "user_role_name": "首席执行官",
     "phase_prompt": [
       "新用户的任务、我们开发的代码以及所需的依赖项如下：",
-       "Task: \"{task}\".",
+      "Task: \"{task}\".",
       "Modality: \"{modality}\".",
       "Programming Language: \"{language}\"",
       "Ideas: \"{ideas}\"",
