@@ -77,6 +77,7 @@ class ChatChain:
 
         # the user input prompt will be self-improved (if set "self_improve": "True" in ChatChainConfig.json)
         # the self-improvement is done in self.preprocess
+        self.self_improve = self.config["self_improve"]
         self.task_prompt_raw = task_prompt
         self.task_prompt = ""
 
@@ -338,8 +339,8 @@ class ChatChain:
 提示应该确保LLMs构建一个可以正确运行的软件，这是您需要考虑的最重要的部分。
 请记住，修改后的提示不应超过 200 个单词，
 这是简短的描述：\"{}\"。
-如果修改后的提示是revised_version_of_the_description，
-那么你应该以\"<INFO> revision_version_of_the_description\" 这样的格式返回消息，不要返回其他格式的消息。""".format(
+如果修改后的提示是"new_prompt"，
+那么你应该以\"<INFO> new_prompt\" 这样的格式返回消息，不要返回其他格式的消息。""".format(
             task_prompt)
         role_play_session = RolePlaying(
             assistant_role_name="提示词工程师",

@@ -97,7 +97,7 @@
   "gui_design": "True",
   "git_management": "False",
   "web_spider": "False",
-  "self_improve": "False",
+  "self_improve": "True",
   "incremental_develop": "False",
   "with_memory": "False",
   "background_prompt": "ChatDev 是一家由多个智能代理驱动的软件公司，例如首席执行官、首席人力资源官、首席产品官、首席技术官等，采用多智能体组织结构，使命是通过编程改变数字世界。"
