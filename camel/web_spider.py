@@ -1,10 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import openai
-from openai import OpenAI
 import wikipediaapi
 import os
-import time
 
 self_api_key = os.environ.get('OPENAI_API_KEY')
 BASE_URL = os.environ.get('BASE_URL')
@@ -18,6 +16,7 @@ else:
     client = openai.OpenAI(
         api_key=self_api_key
     )
+
 
 def get_baidu_baike_content(keyword):
     # design api by the baidubaike
@@ -51,39 +50,39 @@ def get_wiki_content(keyword):
     return page_py.summary
 
 
-
 def modal_trans(task_dsp):
     try:
-        task_in ="'" + task_dsp + \
-               "'Just give me the most important keyword about this sentence without explaining it and your answer should be only one keyword."
-        messages = [{"role": "user", "content": task_in}]
-        response = client.chat.completions.create(messages=messages,
-        model="gpt-3.5-turbo-16k",
-        temperature=0.2,
-        top_p=1.0,
-        n=1,
-        stream=False,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        logit_bias={})
-        response_text = response.choices[0].message.content
-        spider_content = get_wiki_content(response_text)
+        task_in = "'" + task_dsp + \
+                  "'只要给我关于这句话的最重要的关键词而不解释它，你的答案就应该只有一个关键词。"
+        response_text = _get_openai_summary(task_in)
+        print(f"提取关键词: {response_text}")
+        spider_content = get_baidu_baike_content(response_text)
         # time.sleep(1)
         task_in = "'" + spider_content + \
-               "',Summarize this paragraph and return the key information."
-        messages = [{"role": "user", "content": task_in}]
-        response = client.chat.completions.create(messages=messages,
-        model="gpt-3.5-turbo-16k",
-        temperature=0.2,
-        top_p=1.0,
-        n=1,
-        stream=False,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        logit_bias={})
-        result = response.choices[0].message.content
+                  "',总结这一段文本并返回关键信息。"
+        result = _get_openai_summary(task_in)
+        print(f"总结返回文本: {response_text}")
         print("web spider content:", result)
     except:
         result = ''
         print("the content is none")
     return result
+
+
+def _get_openai_summary(task_in):
+    messages = [{"role": "user", "content": task_in}]
+    response = client.chat.completions.create(messages=messages,
+                                              model="gpt-3.5-turbo-16k",
+                                              temperature=0.2,
+                                              top_p=1.0,
+                                              n=1,
+                                              stream=False,
+                                              frequency_penalty=0.0,
+                                              presence_penalty=0.0,
+                                              logit_bias={})
+    result = response.choices[0].message.content
+    return result
+
+
+if "__main__" == __name__:
+    get_baidu_baike_content("北京")

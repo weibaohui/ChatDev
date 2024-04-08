@@ -96,7 +96,7 @@
   "clear_structure": "True",
   "gui_design": "True",
   "git_management": "False",
-  "web_spider": "False",
+  "web_spider": "True",
   "self_improve": "True",
   "incremental_develop": "False",
   "with_memory": "False",
