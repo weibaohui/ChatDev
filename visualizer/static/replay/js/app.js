@@ -216,7 +216,6 @@ function extraction(contents) {
     let match;
     var itemp = 0;
     while ((match = regex.exec(contents))) {
-        console.log(itemp);
         itemp++;
         const timestamp = match[1];
         const text = match[2];
@@ -243,7 +242,6 @@ function extraction(contents) {
 
     for (let i = 0; i < matches.length; ++i) {
         var if_break = false;
-        console.log(i);
         if (i == 159 || i == 198 || i == 223 || i == 260 || i == 416 || i == 537) {
             //console.log(matches[i]);
         }
@@ -415,7 +413,6 @@ function createPara(d, i) {
         singleDialog.appendChild(character);
 
         const characterimg = document.createElement("img");
-        console.log(d.character);
         if (d.character == "程序员") {
             characterimg.src = "figures/programmer.png";
         } else if (d.character == "代码审查员") {
@@ -494,7 +491,7 @@ function createPara(d, i) {
         var info = "Replayed";
         filelable.innerHTML = md.render(info);
     } else if (d.task) {
-        var renderedHtml = md.render("Task:    " + d.task);
+        var renderedHtml = md.render("任务:    " + d.task);
         const tasktext = document.getElementById("Requesttext");
         tasktext.innerHTML = renderedHtml;
     } else if (d.info) {
