@@ -2,7 +2,7 @@
 
 1. 本仓库为官方仓库的中文版，相关提示词已经更新为中文，可视化演示界面也更新为中文了，欢迎大家体验。
 2. 功能保持官方仓库，未做修改。
-3. 在公司配置下，增加一个Smart文件夹，中文配置都在这个文件夹里，执行时请使用本配置
+3. 在公司配置下，增加一个Smart文件夹，中文配置都在这个文件夹里，执行时请使用本配置 [RoleConfig.json](CompanyConfig/Smart/RoleConfig.json) [PhaseConfig.json](CompanyConfig/Smart/PhaseConfig.json) [ChatChainConfig.json](CompanyConfig/Smart/ChatChainConfig.json)
 
 # 中文效果
 
