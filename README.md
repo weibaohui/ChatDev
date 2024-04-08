@@ -5,6 +5,7 @@
 3. 在公司配置下，增加一个Smart文件夹，中文配置都在这个文件夹里，执行时请使用本配置
 
 # 中文效果
+
 <p align="center">
   <img src='misc/realtime_log.png' width=600>
 </p>
@@ -86,22 +87,26 @@
 
 5. **构建您的软件：** 使用以下命令启动生成您的软件，将`[description_of_your_idea]`替换为您的想法描述，将`[project_name]`
    替换为您想要的项目名称：
-   在Unix/Linux系统上：
 
+   在Unix/Linux系统上：
    ```
    python3 run.py --task "[description_of_your_idea]" --name "[project_name]" --config "Smart"
    ```
-  IP查询页面创建示例 
+
+    IP查询页面创建示例
+
   ``` python
    python3 run.py --task "写一个查询IP地址信息的console程序，要求使用http://ip-api.com/json/{IP}?lang=zh-CN 这个接口" --name "IP查询页面" --config "Smart"
    ```
 
-   在Windows系统上：
+    在Windows系统上：
 
    ```
    python run.py --task "[description_of_your_idea]" --name "[project_name]" --config "Smart"
    ```
- IP查询页面创建示例 
+
+    IP查询页面创建示例 
+
   ``` python
    python run.py --task "写一个查询IP地址信息的console程序，要求使用http://ip-api.com/json/{IP}?lang=zh-CN 这个接口" --name "IP查询页面" --config "Smart"
    ```
