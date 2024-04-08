@@ -1,25 +1,47 @@
 # 注意
+
 1. 本仓库为官方仓库的中文版，相关提示词已经更新为中文，可视化演示界面也更新为中文了，欢迎大家体验。
 2. 功能保持官方仓库，未做修改。
 3. 在公司配置下，增加一个Smart文件夹，中文配置都在这个文件夹里，执行时请使用本配置
 
-# Communicative Agents for Software Development
-
+# 中文效果
 <p align="center">
-  <img src='../misc/logo1.png' width=600>
+  <img src='misc/realtime_log.png' width=600>
 </p>
 
 <p align="center">
-    【📚 <a href="../wiki.md">Wiki</a> | 🚀 <a href="../wiki.md#visualizer">Visualizer</a> | 👥 <a href="../Contribution.md">Community Built Software</a> | 🔧 <a href="../wiki.md#customization">Customization</a>】
+  <img src='misc/visualizer.png' width=600>
+</p>
+
+<p align="center">
+  <img src='misc/log.png' width=600>
+</p>
+[IP查询页面_DefaultOrganization_20240408134720.log](WareHouse%2FIP%E6%9F%A5%E8%AF%A2%E9%A1%B5%E9%9D%A2_DefaultOrganization_20240408134720%2FIP%E6%9F%A5%E8%AF%A2%E9%A1%B5%E9%9D%A2_DefaultOrganization_20240408134720.log)
+
+# Communicative Agents for Software Development
+
+<p align="center">
+  <img src='misc/logo1.png' width=600>
+</p>
+
+<p align="center">
+    【📚 <a href="wiki.md">Wiki</a> | 🚀 <a href="wiki.md#visualizer">Visualizer</a> | 👥 <a href="Contribution.md">Community Built Software</a> | 🔧 <a href="wiki.md#customization">Customization</a>】
 </p>
 
 ## 📖 概述
 
 - **ChatDev** 是一家**虚拟软件公司**，通过各种不同角色的**智能体**
-  运营，包括执行官<img src='../visualizer/static/figures/ceo.png' height=20>，产品官<img src='../visualizer/static/figures/cpo.png' height=20>，技术官<img src='../visualizer/static/figures/cto.png' height=20>，程序员 <img src='../visualizer/static/figures/programmer.png' height=20>，审查员<img src='../visualizer/static/figures/reviewer.png' height=20>，测试员<img src='../visualizer/static/figures/tester.png' height=20>，设计师<img src='../visualizer/static/figures/designer.png' height=20> 等。这些智能体形成了一个多智能体组织结构，其使命是“通过编程改变数字世界”。ChatDev内的智能体通过参加专业的功能研讨会来
+  运营，包括执行官<img src='visualizer/static/figures/ceo.png' height=20>
+  ，产品官<img src='visualizer/static/figures/cpo.png' height=20>
+  ，技术官<img src='visualizer/static/figures/cto.png' height=20>
+  ，程序员 <img src='visualizer/static/figures/programmer.png' height=20>
+  ，审查员<img src='visualizer/static/figures/reviewer.png' height=20>
+  ，测试员<img src='visualizer/static/figures/tester.png' height=20>
+  ，设计师<img src='visualizer/static/figures/designer.png' height=20>
+  等。这些智能体形成了一个多智能体组织结构，其使命是“通过编程改变数字世界”。ChatDev内的智能体通过参加专业的功能研讨会来
   **协作**，包括设计、编码、测试和文档编写等任务。
 - ChatDev的主要目标是提供一个基于大型语言模型（LLM）的**易于使用**、**高度可定制**并且**可扩展**的框架，它是研究群体智能的理想场景。
-  
+
 ## ⚡️ 快速开始
 
 要开始使用，按照以下步骤操作：
@@ -68,25 +90,38 @@
    ```
    python3 run.py --task "[description_of_your_idea]" --name "[project_name]" --config "Smart"
    ```
+  IP查询页面创建示例 
+  ``` python
+   python3 run.py --task "写一个查询IP地址信息的console程序，要求使用http://ip-api.com/json/{IP}?lang=zh-CN 这个接口" --name "IP查询页面" --config "Smart"
+   ```
 
    在Windows系统上：
 
    ```
    python run.py --task "[description_of_your_idea]" --name "[project_name]" --config "Smart"
    ```
+ IP查询页面创建示例 
+  ``` python
+   python run.py --task "写一个查询IP地址信息的console程序，要求使用http://ip-api.com/json/{IP}?lang=zh-CN 这个接口" --name "IP查询页面" --config "Smart"
+   ```
+
 6. **运行您的软件：** 生成后，您可以在`WareHouse`
    目录下的特定项目文件夹中找到您的软件，例如`project_name_DefaultOrganization_timestamp`。在该目录中运行以下命令来运行您的软件：
    在Unix/Linux系统上：
 
    ```
-   cd WareHouse/project_name_DefaultOrganization_timestamp
-   python3 main.py
+
+cd WareHouse/project_name_DefaultOrganization_timestamp
+python3 main.py
+
    ```
 
    在Windows系统上：
 
    ```
-   cd WareHouse/project_name_DefaultOrganization_timestamp
-   python main.py
+
+cd WareHouse/project_name_DefaultOrganization_timestamp
+python main.py
+
    ```
    

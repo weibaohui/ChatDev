@@ -1,0 +1,33 @@
+Task:
+写一个查询IP地址信息的console程序，要求使用http://ip-api.com/json/{IP}?lang=zh-CN 这个接口
+
+Config:
+ChatEnvConfig.with_memory: False
+ChatEnvConfig.clear_structure: True
+ChatEnvConfig.git_management: False
+ChatEnvConfig.gui_design: True
+ChatEnvConfig.incremental_develop: False
+ChatEnvConfig.background_prompt: ChatDev 是一家由多个智能代理驱动的软件公司，例如首席执行官、首席人力资源官、首席产品官、首席技术官等，采用多智能体组织结构，使命是通过编程改变数字世界。
+
+
+Roster:
+首席执行官, 顾问, 首席人力资源官, 首席产品官, 首席技术官, 程序员, 代码审查员, 软件测试工程师, 首席创意官
+
+Modality:
+console程序
+
+Ideas:
+
+
+Language:
+ Python
+
+Code_Version:
+4.0
+
+Proposed_images:
+0
+
+Incorporated_images:
+0
+
