@@ -88,3 +88,4 @@ dmypy.json
 cython_debug/
 /run.sh
 /run_ecl.sh
+/run_siliconflow.sh

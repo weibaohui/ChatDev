@@ -65,7 +65,9 @@ class OpenAIModel(ModelBackend):
 
     def run(self, *args, **kwargs):
         string = "\n".join([message["content"] for message in kwargs["messages"]])
-        encoding = tiktoken.encoding_for_model(self.model_type.value)
+        # encoding = tiktoken.encoding_for_model(self.model_type.value)
+        # 强制匹配gpt-3.5-turbo-0301的encoding配置
+        encoding = tiktoken.encoding_for_model("gpt-3.5-turbo-0301")
         num_prompt_tokens = len(encoding.encode(string))
         gap_between_send_receive = 15 * len(kwargs["messages"])
         num_prompt_tokens += gap_between_send_receive
@@ -83,6 +85,7 @@ class OpenAIModel(ModelBackend):
                 )
 
             num_max_token_map = {
+                "alibaba/Qwen2-7B-Instruct": 4096,
                 "gpt-3.5-turbo": 4096,
                 "gpt-3.5-turbo-16k": 16384,
                 "gpt-3.5-turbo-0613": 4096,
@@ -173,7 +176,7 @@ class ModelFactory:
 
     @staticmethod
     def create(model_type: ModelType, model_config_dict: Dict) -> ModelBackend:
-        default_model_type = ModelType.GPT_3_5_TURBO
+        default_model_type = ModelType.QWEN
 
         if model_type in {
             ModelType.GPT_3_5_TURBO,
@@ -182,6 +185,7 @@ class ModelFactory:
             ModelType.GPT_4_32k,
             ModelType.GPT_4_TURBO,
             ModelType.GPT_4_TURBO_V,
+            ModelType.QWEN,
             None
         }:
             model_class = OpenAIModel

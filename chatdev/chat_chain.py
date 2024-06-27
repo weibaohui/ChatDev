@@ -28,7 +28,7 @@ class ChatChain:
                  task_prompt: str = None,
                  project_name: str = None,
                  org_name: str = None,
-                 model_type: ModelType = ModelType.GPT_3_5_TURBO,
+                 model_type: ModelType = ModelType.QWEN,
                  code_path: str = None) -> None:
         """
 

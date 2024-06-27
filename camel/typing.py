@@ -50,7 +50,7 @@ class ModelType(Enum):
     GPT_4_32k = "gpt-4-32k"
     GPT_4_TURBO = "gpt-4-1106-preview"
     GPT_4_TURBO_V = "gpt-4-1106-vision-preview"
-
+    QWEN="alibaba/Qwen2-7B-Instruct"
     STUB = "stub"
 
     @property

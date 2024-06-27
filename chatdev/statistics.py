@@ -113,6 +113,8 @@ def get_info(dir, log_filepath):
                 model_type = "gpt-4-32k"
             elif model_type == "GPT_4_TURBO":
                 model_type = "gpt-4-1106-preview"
+            elif model_type == "QWEN":
+                model_type = "alibaba/Qwen2-7B-Instruct"
             # print("model_type:", model_type)
 
         lines = open(log_filepath, "r", encoding="utf8").read().split("\n")

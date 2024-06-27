@@ -89,7 +89,8 @@ def num_tokens_from_messages(
         ModelType.GPT_4_32k,
         ModelType.GPT_4_TURBO,
         ModelType.GPT_4_TURBO_V,
-        ModelType.STUB
+        ModelType.STUB,
+        ModelType.QWEN
     }:
         return count_tokens_openai_chat_models(messages, encoding)
     else:
@@ -124,6 +125,8 @@ def get_model_token_limit(model: ModelType) -> int:
         return 128000
     elif model == ModelType.STUB:
         return 4096
+    elif model == ModelType.QWEN:
+        return 16384
     else:
         raise ValueError("Unknown model type")
 

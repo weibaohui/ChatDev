@@ -3,7 +3,15 @@
 1. 本仓库为官方仓库的中文版，相关提示词已经更新为中文，可视化演示界面也更新为中文了，欢迎大家体验。
 2. 功能保持官方仓库，未做修改。
 3. 在公司配置下，增加一个Smart文件夹，中文配置都在这个文件夹里，执行时请使用本配置 [RoleConfig.json](CompanyConfig/Smart/RoleConfig.json) [PhaseConfig.json](CompanyConfig/Smart/PhaseConfig.json) [ChatChainConfig.json](CompanyConfig/Smart/ChatChainConfig.json)
+4. 最新增加使用siliconflow的alibaba/Qwen2-7B-Instruct模型适配。
 
+# siliconflow 使用配置
+首先在silicon flow 官网申请api密钥，替换到下面的命令行中
+```bash
+export OPENAI_API_KEY="sk-kkkkkkkkk"  
+export BASE_URL="https://api.siliconflow.cn/v1"
+python3 run.py --task "写一个查询IP地址信息的console程序，要求使用http://ip-api.com/json/0.0.0.0?lang=zh-CN 这个接口" --name "IP查询页面" --config "Smart"
+```
 # 中文效果
 
 <p align="center">
